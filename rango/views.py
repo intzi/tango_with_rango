@@ -4,6 +4,7 @@ from rango.models import Category
 from rango.models import Page
 from rango.forms import CategoryForm
 from rango.forms import PageForm
+from django.urls import reverse
 
 def index(request):
     categories = Category.objects.order_by('-likes')[:5]
@@ -13,6 +14,9 @@ def index(request):
 
 def about(request):
     context_dict = {"maker" : "Dimitrios"}
+    print(request.method)
+    # prints out the user name, if no one is logged in it prints `AnonymousUser`
+    print(request.user)
     return render(request, 'rango/about.html', context=context_dict)
 
 def show_category(request, category_name_slug):
